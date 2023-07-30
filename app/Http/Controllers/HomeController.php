@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Task;
 
 class HomeController extends Controller
 {
@@ -21,7 +22,7 @@ class HomeController extends Controller
    
    public function add(Request $request)
    {
-     DB::table('tasks')->insert([
+     Task::insert([
        "list" => $request->list,
       ]);
       return back();
@@ -29,14 +30,14 @@ class HomeController extends Controller
    
    public function edit($id)
    {
-     $tasks = DB::table('tasks')->where('id',$id)->first();
+     $tasks = Task::where('id',$id)->first();
      return view('edit',["tasks" => $tasks]);
      
    }
    
    public function update(Request $request, $id)
    {
-     DB::table('tasks')->where('id',$id)->update([
+     Task::where('id',$id)->update([
        "list" => $request->list,
      ]);
      return redirect('/');
@@ -44,7 +45,7 @@ class HomeController extends Controller
    
    public function destroy($id)
    {
-     DB::table('tasks')->where('id',$id)->delete();
+     Task::where('id',$id)->delete();
      return redirect('/');
    }
    
